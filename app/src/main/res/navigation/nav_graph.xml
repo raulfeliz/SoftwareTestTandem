@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph"
+            app:startDestination="@id/wheather_fragment">
+
+    <fragment android:id="@+id/wheather_fragment"
+              android:name="com.raul.androidapps.softwaretesttandem.ui.main.WheatherFragment"
+              android:label="wheather_fragment" tools:layout="@layout/wheather_fragment"/>
+
+</navigation>

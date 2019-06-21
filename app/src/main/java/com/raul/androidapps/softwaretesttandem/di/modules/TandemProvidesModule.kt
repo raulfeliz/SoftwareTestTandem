@@ -1,10 +1,10 @@
 package com.raul.androidapps.softwaretesttandem.di.modules
 
 import android.content.Context
-import androidx.room.Room
 import com.raul.androidapps.softwaretesttandem.TandemApplication
 import com.raul.androidapps.softwaretesttandem.persistence.databases.TandemDatabase
-import com.raul.androidapps.softwaretesttandem.persistence.utils.PersistenceConstants
+import com.raul.androidapps.softwaretesttandem.persistence.utils.DatabasePopulateTool
+import com.raul.androidapps.softwaretesttandem.preferences.PreferencesManager
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -17,17 +17,10 @@ class TandemProvidesModule {
 
     @Singleton
     @Provides
-    fun provideDb(app: TandemApplication): TandemDatabase {
-
-
-        return Room.databaseBuilder(
-            app,
-            TandemDatabase::class.java, PersistenceConstants.DATABASE_NAME
-        )
-            //.addMigrations()    //no migrations, version 1
-            .fallbackToDestructiveMigration()
-            .build()
-
-    }
+    fun provideDb(
+        context: Context,
+        preferencesManager: PreferencesManager,
+        databasePopulateTool: DatabasePopulateTool
+    ): TandemDatabase = TandemDatabase.getInstance(context, preferencesManager, databasePopulateTool)
 
 }

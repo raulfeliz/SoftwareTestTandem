@@ -28,6 +28,7 @@ class WheatherFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(WheatherViewModel::class.java)
         // TODO: Use the ViewModel
+        viewModel.createDb()
     }
 
 }

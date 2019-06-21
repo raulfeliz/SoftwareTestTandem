@@ -83,4 +83,11 @@ dependencies {
     implementation("com.github.bumptech.glide:okhttp3-integration:$glideVersion") {
         exclude group: 'glide-parent'
     }
+
+    //Db and pagination
+    def roomVersion = '2.1.0'
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+
 }

@@ -7,8 +7,8 @@ object ComponentFactory {
 
     fun component(context: TandemApplication): TandemComponent {
         return DaggerTandemComponent.builder()
-                .application(context)
-                .build()
+            .application(context)
+            .build()
     }
 
 }

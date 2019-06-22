@@ -5,7 +5,6 @@ import androidx.room.Query
 import com.raul.androidapps.softwaretesttandem.persistence.entities.CityInfoEntity
 
 
-
 @Dao
 abstract class CityInfoDao : BaseDao<CityInfoEntity>() {
 

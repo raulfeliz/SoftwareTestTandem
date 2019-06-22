@@ -2,7 +2,7 @@ package com.raul.androidapps.softwaretesttandem.persistence.utils
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.raul.androidapps.softwaretesttandem.models.CityInfo
+import com.raul.androidapps.softwaretesttandem.model.City
 import com.raul.androidapps.softwaretesttandem.persistence.daos.CityInfoDao
 import com.raul.androidapps.softwaretesttandem.persistence.entities.CityInfoEntity
 import com.raul.androidapps.softwaretesttandem.preferences.PreferencesConstants
@@ -22,6 +22,7 @@ class DatabasePopulateTool @Inject constructor(
         populateDbWithList(dao, "current.city.list.min.json")
         preferencesManager.setBooleanIntoPreferences(PreferencesConstants.PROPERTY_DB_POPULATED_WITH_SMALL_LIST, true)
     }
+
     suspend fun populateDbWithBigList(dao: CityInfoDao) {
         populateDbWithList(dao, "city.list.min.json")
         preferencesManager.setBooleanIntoPreferences(PreferencesConstants.PROPERTY_DB_POPULATED_WITH_BIG_LIST, true)
@@ -33,10 +34,10 @@ class DatabasePopulateTool @Inject constructor(
             val start = System.currentTimeMillis()
             val smallText = assetFileUtil.loadJSONFromAsset(fileName)
             val gson = Gson()
-            val smallList = gson.fromJson<List<CityInfo>>(smallText, object : TypeToken<ArrayList<CityInfo>>() {}.type)
+            val smallList = gson.fromJson<List<City>>(smallText, object : TypeToken<ArrayList<City>>() {}.type)
             dao.insert(smallList.map { CityInfoEntity.fromCityInfo(it) })
             val end = System.currentTimeMillis()
-            Timber.d("rukia list inserted in ${end-start} ms")
+            Timber.d("rukia list inserted in ${end - start} ms")
         }
     }
 }

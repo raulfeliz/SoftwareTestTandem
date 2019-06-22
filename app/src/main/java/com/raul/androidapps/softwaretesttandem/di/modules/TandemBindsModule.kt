@@ -1,9 +1,9 @@
 package com.raul.androidapps.softwaretesttandem.di.modules
 
+import com.raul.androidapps.softwaretesttandem.persistence.PersistenceManager
 import com.raul.androidapps.softwaretesttandem.persistence.PersistenceManagerImpl
 import com.raul.androidapps.softwaretesttandem.resources.ResourcesManager
 import com.raul.androidapps.softwaretesttandem.resources.ResourcesManagerImpl
-import com.raul.androidapps.softwaretesttandem.persistence.PersistenceManager
 import dagger.Binds
 import dagger.Module
 

@@ -1,9 +1,8 @@
 package com.raul.androidapps.softwaretesttandem.persistence
 
-import com.raul.androidapps.softwaretesttandem.models.CityInfo
+import com.raul.androidapps.softwaretesttandem.model.City
 import com.raul.androidapps.softwaretesttandem.persistence.databases.TandemDatabase
 import com.raul.androidapps.softwaretesttandem.persistence.entities.CityInfoEntity
-import com.raul.androidapps.softwaretesttandem.persistence.utils.DatabasePopulateTool
 import javax.inject.Inject
 
 class PersistenceManagerImpl @Inject constructor(
@@ -18,7 +17,7 @@ class PersistenceManagerImpl @Inject constructor(
         db.cityInfoDao().getOneCity()
     }
 
-    override suspend fun insertCities(cities: List<CityInfo>) {
+    override suspend fun insertCities(cities: List<City>) {
         db.cityInfoDao().insert(cities.map { CityInfoEntity.fromCityInfo(it) })
     }
 }

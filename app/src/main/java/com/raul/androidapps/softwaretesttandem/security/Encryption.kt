@@ -12,7 +12,6 @@ import android.util.Base64
 import android.util.Log
 import androidx.annotation.RequiresApi
 import timber.log.Timber
-import java.lang.Exception
 import java.math.BigInteger
 import java.security.KeyPairGenerator
 import java.security.KeyStore
@@ -60,11 +59,13 @@ object Encryption {
                     generator.initialize(
                         KeyGenParameterSpec.Builder(
                             alias,
-                            KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
+                            KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+                        )
                             .setBlockModes(KeyProperties.BLOCK_MODE_ECB)
                             .setDigests(KeyProperties.DIGEST_SHA256, KeyProperties.DIGEST_SHA512)
                             .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1)
-                            .build())
+                            .build()
+                    )
 
                 }
                 generator.generateKeyPair()
@@ -126,7 +127,6 @@ object Encryption {
 
         return decryptedText
     }
-
 
 
 }

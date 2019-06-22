@@ -43,10 +43,10 @@ class ResourcesManagerImpl @Inject constructor(val context: Context) : Resources
         return context.resources.getIdentifier(resourceName, "id", context.packageName)
     }
 
-    override fun getPlural(resId: Int, value: Int, varargs: Int?): String{
-        return if(varargs == null){
+    override fun getPlural(resId: Int, value: Int, varargs: Int?): String {
+        return if (varargs == null) {
             context.resources.getQuantityString(resId, value)
-        }else {
+        } else {
             context.resources.getQuantityString(resId, value, varargs)
         }
     }

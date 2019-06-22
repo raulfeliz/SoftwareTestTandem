@@ -4,11 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.raul.androidapps.softwaretesttandem.di.interfaces.ViewModelKey
 import com.raul.androidapps.softwaretesttandem.ui.common.TandemViewModelFactory
-import com.raul.androidapps.softwaretesttandem.ui.main.WheatherViewModel
+import com.raul.androidapps.softwaretesttandem.ui.main.WeatherViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-
 
 
 @Suppress("unused")
@@ -17,8 +16,8 @@ internal abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(WheatherViewModel::class)
-    internal abstract fun bindMainViewModel(wheatherViewModel: WheatherViewModel): ViewModel
+    @ViewModelKey(WeatherViewModel::class)
+    internal abstract fun bindMainViewModel(weatherViewModel: WeatherViewModel): ViewModel
 
     @Binds
     internal abstract fun bindViewModelFactory(factory: TandemViewModelFactory): ViewModelProvider.Factory

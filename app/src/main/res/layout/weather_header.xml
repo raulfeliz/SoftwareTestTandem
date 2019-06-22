@@ -11,15 +11,15 @@
     <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/motionLayout"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             app:showPaths="true">
 
         <ImageView
                 android:id="@+id/icon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:scaleType="centerCrop"
-                tools:src="@mipmap/ic_launcher"
+                android:background="#f00"
                 imageCenter="@{weather.getIconUrl()}"
                 app:layout_constraintBottom_toBottomOf="@id/speed_title"
                 app:layout_constraintTop_toTopOf="@id/description"

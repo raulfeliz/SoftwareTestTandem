@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
 >
+    <data>
+        <variable name="weather" type="com.raul.androidapps.softwaretesttandem.model.WeatherResponse"/>
+    </data>
     <androidx.constraintlayout.motion.widget.MotionLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutDescription="@xml/scene_weather">
+            android:layout_height="match_parent">
 
-        <include layout="@layout/weather_header"/>
-        <include layout="@layout/weather_content_scrolling"/>
+        <include
+                android:id="@+id/motionLayout"
+                layout="@layout/weather_header"
+                bind:weather="@{weather}"/>
+        <include
+                layout="@layout/weather_content_scrolling"/>
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 

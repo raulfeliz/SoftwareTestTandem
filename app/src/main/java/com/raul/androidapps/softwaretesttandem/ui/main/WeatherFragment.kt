@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.raul.androidapps.softwaretesttandem.R
 import com.raul.androidapps.softwaretesttandem.databinding.WeatherFragmentBinding
@@ -33,33 +32,33 @@ class WeatherFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
         viewModel.createDb()
-        viewModel.getServerResponseObservable().observe(this, Observer {
-            it?.let { resource->
-                when(resource.status){
+        viewModel.getServerResponseObservable().observe({ this.lifecycle }) {
+            it?.let { resource ->
+                when (resource.status) {
                     Resource.Status.SUCCESS -> showForecast(resource.data)
                     Resource.Status.ERROR -> showError(resource.message)
                     Resource.Status.LOADING -> showLoading()
                 }
             }
-        })
+        }
     }
 
-    fun showLoading(){
-
-    }
-
-    fun showError(message: String?){
+    fun showLoading() {
 
     }
 
-    fun showForecast(data: TotalForecastResponse?){
+    fun showError(message: String?) {
 
+    }
+
+    fun showForecast(data: TotalForecastResponse?) {
+        binding.weather = data?.currentWeather
     }
 
     override fun onResume() {
         super.onResume()
         requestedId?.let {
-            if(viewModel.needToRequestNewInfo(System.currentTimeMillis())) {
+            if (viewModel.needToRequestNewInfo(System.currentTimeMillis())) {
                 viewModel.getForecast(it)
             }
         }

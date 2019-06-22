@@ -5,4 +5,6 @@ data class WeatherResponse(
     val weather: List<Weather>,
     val name: String,
     val wind: Wind
-)
+){
+    fun getMainDescription(): String? = weather.firstOrNull()?.main
+}

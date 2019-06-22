@@ -1,49 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
 >
+    <data>
+        <variable name="weather" type="com.raul.androidapps.softwaretesttandem.model.WeatherResponse"/>
+    </data>
+
+<!--            app:layoutDescription="@xml/scene_weather_header"-->
     <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/motionLayout"
-            app:layoutDescription="@xml/scene_weather_header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:showPaths="true"
-            android:background="#1e376b">
+            android:layout_height="200dp"
+            app:showPaths="true">
 
         <ImageView
-                android:id="@+id/background"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@color/colorAccent"
+                android:id="@+id/icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/splash_drawable"/>
+                tools:src="@mipmap/ic_launcher"
+                app:layout_constraintBottom_toBottomOf="@id/speed_title"
+                app:layout_constraintTop_toTopOf="@id/description"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="24sp"
+                tools:ignore="ContentDescription"/>
 
         <TextView
-                android:id="@+id/label"
+                android:id="@+id/cityName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:transformPivotX="0dp"
-                android:transformPivotY="0dp"
-                android:text="Monterey"
-                android:textColor="#FFF"
-                android:textSize="32dp"/>
+                tools:text="Monterey"
+                android:text="@{weather.name}"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="32sp"
+        />
 
         <TextView
-                android:id="@+id/sublabel"
+                android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="California"
-                android:textColor="#FFF"
+                tools:text="Cloudy"
+                android:text="@{weather.getMainDescription()}"
+                android:textColor="@android:color/black"
                 android:textSize="24sp"
-                app:fontFamily="cursive"/>
-
-        <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
+                app:fontFamily="cursive"
+                android:layout_marginStart="16dp"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintTop_toBottomOf="@id/cityName"
+                app:layout_constraintStart_toEndOf="@id/icon"
+                app:layout_constraintBottom_toTopOf="@+id/speed_title"/>
+        <TextView
+                android:id="@+id/speed_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="200dp"/>
+                android:text="@string/wind_speed"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                app:fontFamily="cursive"
+                app:layout_constraintTop_toBottomOf="@+id/description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/description"
+        />
+        <TextView
+                android:id="@+id/speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="50"
+                android:text="@{String.valueOf(weather.wind.speed)}"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                app:fontFamily="cursive"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/speed_title"
+                app:layout_constraintStart_toEndOf="@id/speed_title"
+        />
+        <ImageView
+                android:id="@+id/speed_direction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_upward_black_24dp"
+                android:layout_marginStart="8dp"
+                android:rotation="@{weather.wind.deg}"
+                app:layout_constraintTop_toTopOf="@id/speed"
+                app:layout_constraintBottom_toBottomOf="@id/speed"
+                app:layout_constraintStart_toEndOf="@id/speed"
+                tools:ignore="ContentDescription"/>
+
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

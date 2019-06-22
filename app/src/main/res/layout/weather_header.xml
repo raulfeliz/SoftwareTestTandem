@@ -19,7 +19,6 @@
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:scaleType="centerCrop"
-                android:background="#f00"
                 imageCenter="@{weather.getIconUrl()}"
                 app:layout_constraintBottom_toBottomOf="@id/speed_title"
                 app:layout_constraintTop_toTopOf="@id/description"

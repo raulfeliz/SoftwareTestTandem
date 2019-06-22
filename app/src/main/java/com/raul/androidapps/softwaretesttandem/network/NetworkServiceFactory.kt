@@ -9,7 +9,7 @@ class NetworkServiceFactory @Inject constructor() {
 
     companion object {
         private const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
-        private const val TEMPLATE_ICON_URL = "http://openweathermap.org/img/w/%1s.png"
+        const val TEMPLATE_ICON_URL = "http://openweathermap.org/img/w/%1s.png"
 
     }
 

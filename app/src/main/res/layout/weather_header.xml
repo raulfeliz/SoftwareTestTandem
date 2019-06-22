@@ -20,6 +20,7 @@
                 android:layout_height="50dp"
                 android:scaleType="centerCrop"
                 tools:src="@mipmap/ic_launcher"
+                imageCenter="@{weather.getIconUrl()}"
                 app:layout_constraintBottom_toBottomOf="@id/speed_title"
                 app:layout_constraintTop_toTopOf="@id/description"
                 app:layout_constraintStart_toStartOf="parent"

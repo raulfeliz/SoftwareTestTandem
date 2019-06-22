@@ -24,7 +24,7 @@ class WeatherFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.weather_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.weather_fragment, container, false, tandemBindingComponent)
         return binding.root
     }
 

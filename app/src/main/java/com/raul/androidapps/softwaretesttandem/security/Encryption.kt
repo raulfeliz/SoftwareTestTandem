@@ -113,7 +113,6 @@ object Encryption {
         var decryptedText = ""
         try {
             val privateKeyEntry = keyStore.getEntry(alias, null) as KeyStore.PrivateKeyEntry? ?: return ""
-            //RSAPrivateKey privateKey = (RSAPrivateKey) privateKeyEntry.getPrivateKey();
             val output = Cipher.getInstance(CIPHER_TYPE)
             output.init(Cipher.DECRYPT_MODE, privateKeyEntry.privateKey)
 

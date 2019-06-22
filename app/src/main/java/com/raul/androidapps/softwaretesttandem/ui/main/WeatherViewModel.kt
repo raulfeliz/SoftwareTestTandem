@@ -2,6 +2,7 @@ package com.raul.androidapps.softwaretesttandem.ui.main
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.raul.androidapps.softwaretesttandem.TandemApplication
@@ -32,6 +33,8 @@ class WeatherViewModel @Inject constructor(
             persistenceManager.createDb()
         }
     }
+
+    fun getServerResponseObservable(): LiveData<Resource<TotalForecastResponse>> = serverResponse
 
     fun getForecast(id: Long) {
         serverResponse.value = Resource.loading()

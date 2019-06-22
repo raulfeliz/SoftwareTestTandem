@@ -3,10 +3,10 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav_graph"
-            app:startDestination="@id/wheather_fragment">
+            app:startDestination="@id/weather_fragment">
 
-    <fragment android:id="@+id/wheather_fragment"
-              android:name="com.raul.androidapps.softwaretesttandem.ui.main.WheatherFragment"
-              android:label="wheather_fragment" tools:layout="@layout/wheather_fragment"/>
+    <fragment android:id="@+id/weather_fragment"
+              android:name="com.raul.androidapps.softwaretesttandem.ui.main.WeatherFragment"
+              android:label="weather_fragment" tools:layout="@layout/weather_fragment"/>
 
 </navigation>

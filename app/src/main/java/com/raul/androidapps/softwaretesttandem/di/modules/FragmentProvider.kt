@@ -1,7 +1,7 @@
 package com.raul.androidapps.softwaretesttandem.di.modules
 
 import com.raul.androidapps.softwaretesttandem.di.interfaces.CustomScopes
-import com.raul.androidapps.softwaretesttandem.ui.main.WheatherFragment
+import com.raul.androidapps.softwaretesttandem.ui.main.WeatherFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -12,6 +12,6 @@ abstract class FragmentsProvider {
 
     @CustomScopes.FragmentScope
     @ContributesAndroidInjector
-    abstract fun providesMainFragmentFactory(): WheatherFragment
+    abstract fun providesMainFragmentFactory(): WeatherFragment
 
 }

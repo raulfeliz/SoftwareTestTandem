@@ -4,7 +4,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.raul.androidapps.softwaretesttandem.TandemApplication
 import com.raul.androidapps.softwaretesttandem.network.NetworkServiceFactory
-import com.raul.androidapps.softwaretesttandem.network.OpenWeatherApi
 import com.raul.androidapps.softwaretesttandem.persistence.PersistenceManager
 import com.raul.androidapps.softwaretesttandem.utils.TandemConstants
 import kotlinx.coroutines.launch
@@ -25,11 +24,21 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    fun getFiveDaysForecast(id: Long){
+    fun getForecast(id: Long){
         viewModelScope.launch {
-            var result = networkServiceFactory.getServiceInstance().getFiveDayForecast(id)
-            Timber.d("")
+            getCurrentWeather(id)
+            getFiveDaysForecast(id)
         }
+    }
+
+    suspend fun getCurrentWeather(id: Long){
+        var result = networkServiceFactory.getServiceInstance().getCurrentWeather(id)
+        Timber.d("")
+    }
+
+    suspend fun getFiveDaysForecast(id: Long) {
+        var result = networkServiceFactory.getServiceInstance().getFiveDayForecast(id)
+        Timber.d("")
     }
 
     fun needToRequesNewInfo(currentTime: Long): Boolean =

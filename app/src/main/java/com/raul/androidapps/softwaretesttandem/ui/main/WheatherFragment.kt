@@ -33,7 +33,7 @@ class WheatherFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getFiveDaysForecast(524901)
+        viewModel.getForecast(524901)
     }
 
 }

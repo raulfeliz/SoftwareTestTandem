@@ -3,11 +3,6 @@ package com.raul.androidapps.softwaretesttandem.persistence.daos
 import androidx.room.*
 
 
-/**
- * Created by Raul on 04/01/2018.
- *
- */
-
 @Dao
 abstract class BaseDao<T> {
 

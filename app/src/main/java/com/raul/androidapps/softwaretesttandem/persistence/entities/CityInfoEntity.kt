@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 import com.raul.androidapps.softwaretesttandem.model.City
 
 
-@Entity(tableName = "city_info", indices = [(Index(value = arrayOf("id"), unique = true))])
+@Entity(tableName = "city_info", indices = [(Index(value = arrayOf("name"), unique = true))])
 data class CityInfoEntity constructor(
     @PrimaryKey
     @ColumnInfo(name = "id")

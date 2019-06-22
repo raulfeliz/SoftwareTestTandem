@@ -6,6 +6,15 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs'
 
+
+
+def getOpenWeatherApi = { ->
+    if (!project.hasProperty('OPEN_WEATHER_API_KEY')) {
+        ant.fail('var OPEN_WEATHER_API_KEY has to be defined in gradle.properties')
+    }
+    return OPEN_WEATHER_API_KEY
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -15,6 +24,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField 'String', 'OPEN_WEATHER_API_KEY', "\"${getOpenWeatherApi()}\""
     }
     buildTypes {
         release {

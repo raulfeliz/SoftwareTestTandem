@@ -12,7 +12,8 @@
             android:id="@+id/motionLayout"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            app:showPaths="true">
+            app:showPaths="true"
+    >
 
         <ImageView
                 android:id="@+id/icon"

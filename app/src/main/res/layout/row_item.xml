@@ -29,7 +29,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/date"
                 tools:listitem="@layout/cell_item"
-                tools:itemCount="5"
+                tools:itemCount="8"
                 android:orientation="horizontal"
                 android:scrollbars="horizontal"
                 app:layoutManager="LinearLayoutManager"

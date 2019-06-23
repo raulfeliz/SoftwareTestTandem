@@ -15,7 +15,15 @@
                 layout="@layout/weather_header"
                 bind:weather="@{weather}"/>
         <include
-                layout="@layout/weather_content_scrolling"/>
+                android:id="@+id/forecast_container"
+                layout="@layout/weather_content_scrolling"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/motionLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+        />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 

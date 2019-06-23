@@ -3,17 +3,23 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
-    <androidx.core.widget.NestedScrollView
-            android:id="@+id/scrollable"
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/forecast_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:showIn="@layout/weather_fragment">
-
-        <TextView
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/forecast_list"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                tools:text="Valladolid"/>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:showIn="@layout/weather_fragment"
+                tools:itemCount="5"
+                tools:listitem="@layout/row_item"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+        />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+
 </layout>

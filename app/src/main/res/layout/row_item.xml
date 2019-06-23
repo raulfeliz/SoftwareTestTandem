@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable name="dayForecast" type="com.raul.androidapps.softwaretesttandem.model.FiveDaysForecast.DayForecast"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -12,6 +12,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="2 April"
+                android:text="@{dayForecast.date}"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_marginStart="8dp"

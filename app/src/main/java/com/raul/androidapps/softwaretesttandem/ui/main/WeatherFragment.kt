@@ -20,6 +20,8 @@ class WeatherFragment : BaseFragment() {
 
     private lateinit var viewModel: WeatherViewModel
 
+    private lateinit var adapter: DaysAdapter
+
     private var requestedId: Long? = 524901
 
     override fun onCreateView(
@@ -32,6 +34,8 @@ class WeatherFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        adapter = DaysAdapter(tandemBindingComponent)
+        binding.forecastContainer.forecastList.adapter = adapter
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
         viewModel.createDb()
         viewModel.getServerResponseObservable().observe({ this.lifecycle }) {
@@ -57,6 +61,7 @@ class WeatherFragment : BaseFragment() {
         binding.weather = data?.currentWeather
         data?.nextFiveDaysWeather?.let {
             val test = FiveDaysForecast(it)
+//            adapter.updateItems(test.getList())
             Timber.d("")
         }
     }

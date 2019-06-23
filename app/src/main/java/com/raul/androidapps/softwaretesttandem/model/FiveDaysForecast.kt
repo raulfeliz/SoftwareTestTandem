@@ -6,7 +6,7 @@ import java.util.*
 
 class FiveDaysForecast constructor(forecast: ForecastResponse) {
 
-    private val forecastList: MutableList<List<DayForecast>> = mutableListOf()
+    private val forecastList: MutableList<DayForecast> = mutableListOf()
 
     init {
         val refDate = getBiggerDate(forecast.list)
@@ -21,11 +21,11 @@ class FiveDaysForecast constructor(forecast: ForecastResponse) {
             )
             auxList.removeAll(list)
             offset++
-            forecastList.add(list.map {
+            forecastList.add(
                 DayForecast(
                     DateUtil.getDay(auxDate),
                     forecast.list.filter { DateUtil.isSameDay(Date(it.dt * 1000), auxDate) })
-            })
+            )
         }
     }
 
@@ -37,7 +37,7 @@ class FiveDaysForecast constructor(forecast: ForecastResponse) {
         return Date()
     }
 
-    fun getList(): List<List<DayForecast>> = forecastList.toList()
+    fun getList(): List<DayForecast> = forecastList.toList()
 
     class DayForecast constructor(val date: String, val forecast: List<Forecast>)
 

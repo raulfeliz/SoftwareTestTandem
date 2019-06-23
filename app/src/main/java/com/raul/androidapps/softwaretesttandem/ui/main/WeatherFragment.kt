@@ -61,7 +61,7 @@ class WeatherFragment : BaseFragment() {
         binding.weather = data?.currentWeather
         data?.nextFiveDaysWeather?.let {
             val test = FiveDaysForecast(it)
-//            adapter.updateItems(test.getList())
+            adapter.updateItems(test.getList())
             Timber.d("")
         }
     }

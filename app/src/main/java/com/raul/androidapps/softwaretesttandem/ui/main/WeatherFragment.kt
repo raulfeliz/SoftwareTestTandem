@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import com.raul.androidapps.softwaretesttandem.R
 import com.raul.androidapps.softwaretesttandem.databinding.WeatherFragmentBinding
 import com.raul.androidapps.softwaretesttandem.model.FiveDaysForecast
@@ -49,16 +50,23 @@ class WeatherFragment : BaseFragment() {
     }
 
     fun showLoading() {
+        binding.progressCircular.visibility = View.VISIBLE
+    }
 
+    fun hideLoading(){
+        binding.progressCircular.visibility = View.GONE
     }
 
     fun showError(message: String?) {
-
+        hideLoading()
+        Snackbar.make(binding.root, resourcesManager.getString(R.string.generic_error), Snackbar.LENGTH_LONG).show()
     }
 
     fun showForecast(data: TotalForecastResponse?) {
+        hideLoading()
         binding.resources = resourcesManager
         binding.weather = data?.currentWeather
+        binding.motionLayout.speedDirection.visibility = View.VISIBLE
         data?.nextFiveDaysWeather?.let {
             adapter.updateItems(FiveDaysForecast(it).getList())
         }

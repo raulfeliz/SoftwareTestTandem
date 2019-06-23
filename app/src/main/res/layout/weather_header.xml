@@ -8,7 +8,7 @@
         <variable name="resources" type="com.raul.androidapps.softwaretesttandem.resources.ResourcesManager"/>
     </data>
 
-<!--            app:layoutDescription="@xml/scene_weather_header"-->
+    <!--            app:layoutDescription="@xml/scene_weather_header"-->
     <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/motionLayout"
             android:layout_width="match_parent"
@@ -80,7 +80,8 @@
                 app:layout_constraintTop_toTopOf="@id/speed"
                 app:layout_constraintBottom_toBottomOf="@id/speed"
                 app:layout_constraintStart_toEndOf="@id/speed"
-                tools:ignore="ContentDescription"/>
+                tools:ignore="ContentDescription"
+                android:visibility="gone"/>
 
 
     </androidx.constraintlayout.motion.widget.MotionLayout>

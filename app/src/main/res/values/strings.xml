@@ -4,4 +4,5 @@
     <string name="temp_min">min: %1sº</string>
     <string name="temp_max">max: %1sº</string>
     <string name="humidity">hum: %1s</string>
+    <string name="generic_error">Error downloading Forecast</string>
 </resources>

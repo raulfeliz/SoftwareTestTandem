@@ -8,9 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.raul.androidapps.softwaretesttandem.R
 import com.raul.androidapps.softwaretesttandem.databinding.WeatherFragmentBinding
+import com.raul.androidapps.softwaretesttandem.model.FiveDaysForecast
 import com.raul.androidapps.softwaretesttandem.model.TotalForecastResponse
 import com.raul.androidapps.softwaretesttandem.network.Resource
 import com.raul.androidapps.softwaretesttandem.ui.common.BaseFragment
+import timber.log.Timber
 
 class WeatherFragment : BaseFragment() {
 
@@ -53,6 +55,10 @@ class WeatherFragment : BaseFragment() {
 
     fun showForecast(data: TotalForecastResponse?) {
         binding.weather = data?.currentWeather
+        data?.nextFiveDaysWeather?.let {
+            val test = FiveDaysForecast(it)
+            Timber.d("")
+        }
     }
 
     override fun onResume() {

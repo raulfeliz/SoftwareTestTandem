@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SoftwareTestTandem</string>
-    <string name="wind_speed">Wind Speed:</string>
-    <string name="temp_min">min:%1sº</string>
-    <string name="temp_max">max:%1sº</string>
-    <string name="humidity">hum:%1s%</string>
+    <string name="wind_speed">Wind Speed: %1s</string>
+    <string name="temp_min">min: %1sº</string>
+    <string name="temp_max">max: %1sº</string>
+    <string name="humidity">hum: %1s</string>
 </resources>

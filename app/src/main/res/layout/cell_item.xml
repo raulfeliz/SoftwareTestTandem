@@ -4,13 +4,13 @@
     <data>
         <variable name="weather" type="com.raul.androidapps.softwaretesttandem.model.Weather"/>
         <variable name="main" type="com.raul.androidapps.softwaretesttandem.model.Main"/>
-        <variable name="time" type="String"/>
+        <variable name="timeText" type="String"/>
         <variable name="resources" type="com.raul.androidapps.softwaretesttandem.resources.ResourcesManager"/>
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:layout_marginStart="2dp"
@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="15:00"
-                android:text="@{time}"
+                android:text="@{timeText}"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_marginTop="4dp"
@@ -36,11 +36,11 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 tools:src="@drawable/test_icon"
-                android:src="@{weather.getIconUrl()}"
+                imageCenter="@{weather.getIconUrl()}"
                 android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/time"
-                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="@id/max"
+                app:layout_constraintBottom_toBottomOf="@id/humidity"
                 tools:ignore="ContentDescription"/>
 
         <TextView
@@ -53,8 +53,9 @@
                 android:textStyle="bold"
                 android:layout_marginTop="4dp"
                 app:layout_constraintStart_toStartOf="@id/icon"
-                app:layout_constraintEnd_toEndOf="@id/icon"
-                app:layout_constraintTop_toBottomOf="@id/icon"
+                app:layout_constraintTop_toBottomOf="@id/barrier"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="4dp"
         />
         <TextView
                 android:id="@+id/max"
@@ -65,9 +66,11 @@
                 android:text="@{main.getMaxTemp(resources)}"
                 android:textSize="12sp"
                 android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/icon"
-                app:layout_constraintTop_toTopOf="@id/icon"
-        />
+                app:layout_constraintTop_toBottomOf="@id/time"
+                app:layout_constraintHorizontal_bias="0.0"/>
         <TextView
                 android:id="@+id/min"
                 android:layout_width="wrap_content"
@@ -76,9 +79,12 @@
                 android:textColor="@color/colorMin"
                 android:text="@{main.getMinTemp(resources)}"
                 android:textSize="12sp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/max"
                 app:layout_constraintStart_toEndOf="@id/icon"
                 app:layout_constraintTop_toBottomOf="@id/max"
+                app:layout_constraintHorizontal_bias="0.0"
         />
         <TextView
                 android:id="@+id/humidity"
@@ -87,9 +93,16 @@
                 tools:text="hum=75%"
                 android:text="@{main.getHumidity(resources)}"
                 android:textSize="12sp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/max"
                 app:layout_constraintTop_toBottomOf="@id/min"
+                app:layout_constraintHorizontal_bias="0.0"
         />
+        <androidx.constraintlayout.widget.Barrier android:layout_width="wrap_content"
+                                                  android:layout_height="wrap_content" android:id="@+id/barrier"
+                                                  app:barrierDirection="bottom" tools:layout_editor_absoluteY="100dp"
+                                                  app:constraint_referenced_ids="icon,humidity"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

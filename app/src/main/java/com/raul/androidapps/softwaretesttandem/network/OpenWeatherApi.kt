@@ -12,11 +12,15 @@ interface OpenWeatherApi {
     @GET("forecast")
     suspend fun getFiveDayForecast(
         @Query("id") id: Long,
-        @Query("APPID")appid: String = BuildConfig.OPEN_WEATHER_API_KEY): Response<ForecastResponse>
+        @Query("APPID") appid: String = BuildConfig.OPEN_WEATHER_API_KEY,
+        @Query("units") units: String = "metric"
+    ): Response<ForecastResponse>
 
     @GET("weather")
     suspend fun getCurrentWeather(
         @Query("id") id: Long,
-        @Query("APPID")appid: String = BuildConfig.OPEN_WEATHER_API_KEY): Response<WeatherResponse>
+        @Query("APPID") appid: String = BuildConfig.OPEN_WEATHER_API_KEY,
+        @Query("units") units: String = "metric"
+    ): Response<WeatherResponse>
 
 }

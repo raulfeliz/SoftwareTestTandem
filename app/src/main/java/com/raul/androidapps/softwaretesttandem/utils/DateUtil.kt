@@ -34,14 +34,19 @@ object DateUtil {
         return cal.time
     }
 
-    fun getDay(date: Date): String {
-        var string = ""
+    fun getDay(date: Date): String =
         try {
-            string = SimpleDateFormat("dd/MM/yyyy", Locale.UK).format(date)
+            SimpleDateFormat("dd/MM/yyyy", Locale.UK).format(date)
         } catch (e: Exception) {
+            ""
         }
 
-        return string
-    }
+    fun getTime(date: Date): String =
+        try {
+            SimpleDateFormat("HH:mm", Locale.UK).format(date)
+        } catch (e: Exception) {
+            ""
+        }
+
 
 }

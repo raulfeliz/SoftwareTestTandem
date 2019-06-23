@@ -8,9 +8,13 @@ import com.raul.androidapps.softwaretesttandem.R
 import com.raul.androidapps.softwaretesttandem.databinding.RowItemBinding
 import com.raul.androidapps.softwaretesttandem.databinding.TandemBindingComponent
 import com.raul.androidapps.softwaretesttandem.model.FiveDaysForecast
+import com.raul.androidapps.softwaretesttandem.resources.ResourcesManager
 
 
-class DaysAdapter constructor(private val tandemBindingComponent: TandemBindingComponent) :
+class DaysAdapter constructor(
+    private val resourcesManager: ResourcesManager,
+    private val tandemBindingComponent: TandemBindingComponent
+) :
     RecyclerView.Adapter<DaysAdapter.DayViewHolder>() {
 
     private var items: List<FiveDaysForecast.DayForecast> = listOf()
@@ -22,24 +26,31 @@ class DaysAdapter constructor(private val tandemBindingComponent: TandemBindingC
             false, tandemBindingComponent
         )
 
-        return DayViewHolder(binding = binding)
+        return DayViewHolder(binding = binding, tandemBindingComponent = tandemBindingComponent)
 
     }
 
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: DayViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], resourcesManager)
     }
 
-    fun updateItems(items: List<FiveDaysForecast.DayForecast>){
+    fun updateItems(items: List<FiveDaysForecast.DayForecast>) {
         this.items = items
         notifyDataSetChanged()
     }
 
-    class DayViewHolder constructor(private val binding: RowItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(forecast: FiveDaysForecast.DayForecast) {
+    class DayViewHolder constructor(
+        private val binding: RowItemBinding,
+        private val tandemBindingComponent: TandemBindingComponent
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(forecast: FiveDaysForecast.DayForecast, resourcesManager: ResourcesManager) {
             binding.dayForecast = forecast
+            val adapter =
+                CellsAdapter(tandemBindingComponent = tandemBindingComponent, resourcesManager = resourcesManager)
+            binding.list.adapter = adapter
+            adapter.updateItems(forecast.forecast)
             binding.executePendingBindings()
         }
     }

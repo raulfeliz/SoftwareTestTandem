@@ -21,6 +21,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:paddingBottom="16dp"
+                android:clipToPadding="false"
         />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

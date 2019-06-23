@@ -12,7 +12,6 @@ import com.raul.androidapps.softwaretesttandem.model.FiveDaysForecast
 import com.raul.androidapps.softwaretesttandem.model.TotalForecastResponse
 import com.raul.androidapps.softwaretesttandem.network.Resource
 import com.raul.androidapps.softwaretesttandem.ui.common.BaseFragment
-import timber.log.Timber
 
 class WeatherFragment : BaseFragment() {
 
@@ -34,7 +33,7 @@ class WeatherFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        adapter = DaysAdapter(tandemBindingComponent)
+        adapter = DaysAdapter(resourcesManager, tandemBindingComponent)
         binding.forecastContainer.forecastList.adapter = adapter
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
         viewModel.createDb()
@@ -58,11 +57,10 @@ class WeatherFragment : BaseFragment() {
     }
 
     fun showForecast(data: TotalForecastResponse?) {
+        binding.resources = resourcesManager
         binding.weather = data?.currentWeather
         data?.nextFiveDaysWeather?.let {
-            val test = FiveDaysForecast(it)
-            adapter.updateItems(test.getList())
-            Timber.d("")
+            adapter.updateItems(FiveDaysForecast(it).getList())
         }
     }
 

@@ -14,7 +14,7 @@ class FiveDaysForecast constructor(forecast: ForecastResponse) {
         var offset = 0
         while (auxList.isNotEmpty()) {
             val auxDate = DateUtil.dateByAdding(refDate, -offset, 0)
-            val list = forecast.list.filter { DateUtil.isSameDay(Date(it.dt * 1000), auxDate) }
+            val list = forecast.list.filter { DateUtil.isSameDay(it.getDate(), auxDate) }
             DayForecast(
                 DateUtil.getDay(auxDate),
                 list
@@ -24,15 +24,15 @@ class FiveDaysForecast constructor(forecast: ForecastResponse) {
             forecastList.add(
                 DayForecast(
                     DateUtil.getDay(auxDate),
-                    forecast.list.filter { DateUtil.isSameDay(Date(it.dt * 1000), auxDate) })
+                    forecast.list.filter { DateUtil.isSameDay(it.getDate(), auxDate) })
             )
         }
     }
 
     private fun getBiggerDate(list: List<Forecast>): Date {
         val orderedList = list.sortedByDescending { it.dt }
-        orderedList.firstOrNull()?.dt?.let { date ->
-            return Date(date * 1000)
+        orderedList.firstOrNull()?.let {
+            return it.getDate()
         }
         return Date()
     }

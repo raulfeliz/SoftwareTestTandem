@@ -5,6 +5,7 @@
 >
     <data>
         <variable name="weather" type="com.raul.androidapps.softwaretesttandem.model.WeatherResponse"/>
+        <variable name="resources" type="com.raul.androidapps.softwaretesttandem.resources.ResourcesManager"/>
     </data>
 
 <!--            app:layoutDescription="@xml/scene_weather_header"-->
@@ -22,7 +23,7 @@
                 android:scaleType="centerCrop"
                 tools:src="@drawable/test_icon"
                 imageCenter="@{weather.getIconUrl()}"
-                app:layout_constraintBottom_toBottomOf="@id/speed_title"
+                app:layout_constraintBottom_toBottomOf="@id/speed"
                 app:layout_constraintTop_toTopOf="@id/description"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="24sp"
@@ -55,31 +56,19 @@
                 app:layout_constraintVertical_chainStyle="packed"
                 app:layout_constraintTop_toBottomOf="@id/cityName"
                 app:layout_constraintStart_toEndOf="@id/icon"
-                app:layout_constraintBottom_toTopOf="@+id/speed_title"/>
+                app:layout_constraintBottom_toTopOf="@+id/speed"/>
         <TextView
-                android:id="@+id/speed_title"
+                android:id="@+id/speed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/wind_speed"
+                tools:text="Wind_speed:20"
+                android:text="@{weather.getWindSpeed(resources)}"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
                 app:fontFamily="cursive"
                 app:layout_constraintTop_toBottomOf="@+id/description"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/description"
-        />
-        <TextView
-                android:id="@+id/speed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="50"
-                android:text="@{String.valueOf(weather.wind.speed)}"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                app:fontFamily="cursive"
-                android:layout_marginStart="8dp"
-                app:layout_constraintBaseline_toBaselineOf="@id/speed_title"
-                app:layout_constraintStart_toEndOf="@id/speed_title"
         />
         <ImageView
                 android:id="@+id/speed_direction"

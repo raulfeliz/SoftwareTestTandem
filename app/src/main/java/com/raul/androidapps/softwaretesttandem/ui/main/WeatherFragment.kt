@@ -66,7 +66,7 @@ class WeatherFragment : BaseFragment() {
         hideLoading()
         binding.resources = resourcesManager
         binding.weather = data?.currentWeather
-        binding.motionLayout.speedDirection.visibility = View.VISIBLE
+        binding.headerLayout.speedDirection.visibility = View.VISIBLE
         data?.nextFiveDaysWeather?.let {
             adapter.updateItems(FiveDaysForecast(it).getList())
         }

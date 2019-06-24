@@ -5,4 +5,5 @@
     <string name="temp_max">max: %1sº</string>
     <string name="humidity">hum: %1s</string>
     <string name="generic_error">Error downloading Forecast</string>
+    <string name="city_name">City name</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.raul.androidapps.softwaretesttandem.di.modules
 
+import com.raul.androidapps.softwaretesttandem.network.NetworkServiceFactory
+import com.raul.androidapps.softwaretesttandem.network.NetworkServiceFactoryImp
 import com.raul.androidapps.softwaretesttandem.persistence.PersistenceManager
 import com.raul.androidapps.softwaretesttandem.persistence.PersistenceManagerImpl
 import com.raul.androidapps.softwaretesttandem.resources.ResourcesManager
@@ -16,5 +18,8 @@ abstract class TandemBindsModule {
 
     @Binds
     abstract fun providePersistenceManager(persistenceManagerImpl: PersistenceManagerImpl): PersistenceManager
+
+    @Binds
+    abstract fun provideNetworkServiceFactory(networkServiceFactoryImp: NetworkServiceFactoryImp): NetworkServiceFactory
 
 }

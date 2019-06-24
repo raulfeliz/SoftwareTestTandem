@@ -1,30 +1,14 @@
 package com.raul.androidapps.softwaretesttandem.network
 
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
 
+interface NetworkServiceFactory {
 
-class NetworkServiceFactory @Inject constructor() {
 
     companion object {
-        private const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
+        const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
         const val TEMPLATE_ICON_URL = "http://openweathermap.org/img/w/%1s.png"
 
     }
 
-    @Volatile
-    private var instance: OpenWeatherApi? = null
-
-    fun getServiceInstance(): OpenWeatherApi =
-        instance ?: synchronized(this) {
-            instance ?: buildNetworkService().also { instance = it }
-        }
-
-    private fun buildNetworkService(): OpenWeatherApi = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build().create(OpenWeatherApi::class.java)
-
-
+    fun getServiceInstance(): OpenWeatherApi
 }

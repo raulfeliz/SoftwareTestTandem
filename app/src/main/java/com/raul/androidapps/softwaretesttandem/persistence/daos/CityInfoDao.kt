@@ -8,7 +8,7 @@ import com.raul.androidapps.softwaretesttandem.persistence.entities.CityInfoEnti
 @Dao
 abstract class CityInfoDao : BaseDao<CityInfoEntity>() {
 
-    @Query("SELECT * FROM city_info WHERE name LIKE :name")
+    @Query("SELECT * FROM city_info WHERE search_name LIKE :name LIMIT 50")
     abstract suspend fun getCityByName(name: String): List<CityInfoEntity>
 
     @Query("SELECT * FROM city_info")

@@ -9,5 +9,13 @@ data class City(
     val name: String,
     @SerializedName("country")
     var country: String? = null
-)
+) {
+    fun getSearchName(): String {
+        var searchName = name
+        country?.let { country ->
+            searchName += ", $country"
+        }
+        return searchName
+    }
+}
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.raul.androidapps.softwaretesttandem.di.interfaces.ViewModelKey
 import com.raul.androidapps.softwaretesttandem.ui.common.TandemViewModelFactory
-import com.raul.androidapps.softwaretesttandem.ui.main.WeatherViewModel
+import com.raul.androidapps.softwaretesttandem.ui.weather.WeatherViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

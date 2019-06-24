@@ -6,7 +6,7 @@
             app:startDestination="@id/weather_fragment">
 
     <fragment android:id="@+id/weather_fragment"
-              android:name="com.raul.androidapps.softwaretesttandem.ui.main.WeatherFragment"
+              android:name="com.raul.androidapps.softwaretesttandem.ui.weather.WeatherFragment"
               android:label="weather_fragment" tools:layout="@layout/weather_fragment"/>
 
 </navigation>

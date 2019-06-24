@@ -1,4 +1,4 @@
-package com.raul.androidapps.softwaretesttandem.ui.main
+package com.raul.androidapps.softwaretesttandem.ui.weather
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

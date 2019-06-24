@@ -1,10 +1,11 @@
-package com.raul.androidapps.softwaretesttandem.ui.main
+package com.raul.androidapps.softwaretesttandem.ui.weather
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.raul.androidapps.softwaretesttandem.R
 import com.raul.androidapps.softwaretesttandem.TandemApplication
 import com.raul.androidapps.softwaretesttandem.model.ForecastResponse
 import com.raul.androidapps.softwaretesttandem.model.TotalForecastResponse
@@ -12,6 +13,8 @@ import com.raul.androidapps.softwaretesttandem.model.WeatherResponse
 import com.raul.androidapps.softwaretesttandem.network.NetworkServiceFactory
 import com.raul.androidapps.softwaretesttandem.network.Resource
 import com.raul.androidapps.softwaretesttandem.persistence.PersistenceManager
+import com.raul.androidapps.softwaretesttandem.persistence.entities.CityInfoEntity
+import com.raul.androidapps.softwaretesttandem.resources.ResourcesManager
 import com.raul.androidapps.softwaretesttandem.utils.TandemConstants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -21,12 +24,22 @@ import javax.inject.Inject
 
 class WeatherViewModel @Inject constructor(
     app: TandemApplication,
+    private val resourcesManager: ResourcesManager,
     private val persistenceManager: PersistenceManager,
     private val networkServiceFactory: NetworkServiceFactory
 ) : AndroidViewModel(app) {
 
     private var lastTimeRequested: Long = 0
     private val serverResponse: MutableLiveData<Resource<TotalForecastResponse>> = MutableLiveData()
+    private val suggestions: MutableLiveData<List<CityInfoEntity>> = MutableLiveData()
+
+    init {
+        suggestions.value = listOf()
+    }
+
+    fun resetLastTimeRequested(){
+        lastTimeRequested = 0
+    }
 
     fun createDb() {
         viewModelScope.launch {
@@ -35,6 +48,7 @@ class WeatherViewModel @Inject constructor(
     }
 
     fun getServerResponseObservable(): LiveData<Resource<TotalForecastResponse>> = serverResponse
+    fun getSuggestionsObservable(): LiveData<List<CityInfoEntity>> = suggestions
 
     fun getForecast(id: Long) {
         serverResponse.value = Resource.loading()
@@ -45,8 +59,8 @@ class WeatherViewModel @Inject constructor(
                 val currentWeather = currentWeatherResponse.await()
                 val nextDaysWeather = nextDaysWeatherResponse.await()
                 val errorMessage = when {
-                    currentWeather.status == Resource.Status.ERROR -> currentWeather.message
-                    nextDaysWeather.status == Resource.Status.ERROR -> nextDaysWeather.message
+                    currentWeather.status == Resource.Status.ERROR -> resourcesManager.getString(R.string.generic_error)
+                    nextDaysWeather.status == Resource.Status.ERROR -> resourcesManager.getString(R.string.generic_error)
                     else -> null
                 }
                 serverResponse.value = if (errorMessage != null) {
@@ -83,8 +97,18 @@ class WeatherViewModel @Inject constructor(
 
     fun needToRequestNewInfo(time: Long): Boolean =
         (time - lastTimeRequested > TandemConstants.TIME_TO_AVOID_NEXT_REQUEST)
-            .also { if(it)  lastTimeRequested = time}
+            .also { if (it) lastTimeRequested = time }
 
+    fun getSuggestions(name: String) {
+        if(name.isBlank()){
+            suggestions.value = listOf()
+            return
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            val list = persistenceManager.getCity(name)
+            suggestions.postValue(list)
+        }
+    }
 
 
 }

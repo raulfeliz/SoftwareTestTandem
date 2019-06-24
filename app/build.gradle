@@ -24,6 +24,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true
+
         buildConfigField 'String', 'OPEN_WEATHER_API_KEY', "\"${getOpenWeatherApi()}\""
     }
     buildTypes {
@@ -103,5 +105,25 @@ dependencies {
     def lifecycleVersion = '2.2.0-alpha01'
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+
+    // Android Testing Support Library's runner and rules
+    def version_runner = "1.1.0-alpha4"
+    def version_rules = "1.1.0-alpha4"
+    def version_arch_core = "2.0.0"
+    androidTestImplementation "androidx.test:runner:$version_runner"
+    androidTestImplementation "androidx.test:rules:$version_rules"
+    androidTestImplementation "androidx.room:room-testing:$roomVersion"
+    androidTestImplementation "androidx.arch.core:core-testing:$version_arch_core"
+
+    // Espresso UI Testing
+    def version_espresso = "3.1.0-alpha4"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$version_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$version_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$version_espresso"
+
+    // Resolve conflicts between main and test APK:
+    def version_support = "1.0.0"
+    androidTestImplementation "androidx.annotation:annotation:$version_support"
+    androidTestImplementation "androidx.legacy:legacy-support-v4:$version_support"
 
 }

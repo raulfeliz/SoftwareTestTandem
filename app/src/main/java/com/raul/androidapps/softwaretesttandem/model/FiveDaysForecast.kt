@@ -1,5 +1,6 @@
 package com.raul.androidapps.softwaretesttandem.model
 
+import androidx.annotation.VisibleForTesting
 import com.raul.androidapps.softwaretesttandem.utils.DateUtil
 import java.util.*
 
@@ -9,11 +10,11 @@ class FiveDaysForecast constructor(forecast: ForecastResponse) {
     private val forecastList: MutableList<DayForecast> = mutableListOf()
 
     init {
-        val refDate = getBiggerDate(forecast.list)
+        val refDate = getClosestDate(forecast.list)
         val auxList: MutableList<Forecast> = forecast.list.toMutableList()
         var offset = 0
         while (auxList.isNotEmpty()) {
-            val auxDate = DateUtil.dateByAdding(refDate, -offset, 0)
+            val auxDate = DateUtil.dateByAdding(refDate, offset, 0)
             val list = forecast.list.filter { DateUtil.isSameDay(it.getDate(), auxDate) }
             DayForecast(
                 DateUtil.getDay(auxDate),
@@ -29,8 +30,9 @@ class FiveDaysForecast constructor(forecast: ForecastResponse) {
         }
     }
 
-    private fun getBiggerDate(list: List<Forecast>): Date {
-        val orderedList = list.sortedByDescending { it.dt }
+    @VisibleForTesting
+    fun getClosestDate(list: List<Forecast>): Date {
+        val orderedList = list.sortedBy { it.dt }
         orderedList.firstOrNull()?.let {
             return it.getDate()
         }

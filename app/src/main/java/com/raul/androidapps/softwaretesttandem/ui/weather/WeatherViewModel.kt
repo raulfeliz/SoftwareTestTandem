@@ -1,9 +1,11 @@
 package com.raul.androidapps.softwaretesttandem.ui.weather
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.raul.androidapps.softwaretesttandem.R
-import com.raul.androidapps.softwaretesttandem.TandemApplication
 import com.raul.androidapps.softwaretesttandem.model.ForecastResponse
 import com.raul.androidapps.softwaretesttandem.model.TotalForecastResponse
 import com.raul.androidapps.softwaretesttandem.model.WeatherResponse
@@ -34,7 +36,7 @@ class WeatherViewModel @Inject constructor(
         suggestions.value = listOf()
     }
 
-    fun resetLastTimeRequested(){
+    fun resetLastTimeRequested() {
         lastTimeRequested = 0
     }
 
@@ -97,7 +99,7 @@ class WeatherViewModel @Inject constructor(
             .also { if (it) lastTimeRequested = time }
 
     fun getSuggestions(name: String) {
-        if(name.isBlank()){
+        if (name.isBlank()) {
             suggestions.value = listOf()
             return
         }

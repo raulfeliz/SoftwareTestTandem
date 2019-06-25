@@ -30,13 +30,15 @@ class FiveDaysForecast constructor(forecast: ForecastResponse) {
         }
     }
 
-    @VisibleForTesting
-    fun getClosestDate(list: List<Forecast>): Date {
-        val orderedList = list.sortedBy { it.dt }
-        orderedList.firstOrNull()?.let {
-            return it.getDate()
+    companion object {
+        @VisibleForTesting
+        fun getClosestDate(list: List<Forecast>): Date {
+            val orderedList = list.sortedBy { it.dt }
+            orderedList.firstOrNull()?.let {
+                return it.getDate()
+            }
+            return Date()
         }
-        return Date()
     }
 
     fun getList(): List<DayForecast> = forecastList.toList()

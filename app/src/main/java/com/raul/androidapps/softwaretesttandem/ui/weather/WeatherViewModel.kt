@@ -6,7 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raul.androidapps.softwaretesttandem.R
-import com.raul.androidapps.softwaretesttandem.model.*
+import com.raul.androidapps.softwaretesttandem.model.FiveDaysForecast
+import com.raul.androidapps.softwaretesttandem.model.ForecastResponse
+import com.raul.androidapps.softwaretesttandem.model.TotalForecastResponse
+import com.raul.androidapps.softwaretesttandem.model.WeatherResponse
 import com.raul.androidapps.softwaretesttandem.network.NetworkServiceFactory
 import com.raul.androidapps.softwaretesttandem.network.Resource
 import com.raul.androidapps.softwaretesttandem.persistence.PersistenceManager

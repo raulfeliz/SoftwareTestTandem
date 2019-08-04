@@ -5,11 +5,11 @@ import com.raul.androidapps.softwaretesttandem.utils.DateUtil
 import java.util.*
 
 
-class FiveDaysForecast constructor(forecast: ForecastResponse) {
+object FiveDaysForecast {
 
-    private val forecastList: MutableList<DayForecast> = mutableListOf()
-
-    init {
+    fun getAsList(forecast: ForecastResponse?): List<DayForecast> {
+        forecast ?: return listOf()
+        val forecastList: MutableList<DayForecast> = mutableListOf()
         val refDate = getClosestDate(forecast.list)
         val auxList: MutableList<Forecast> = forecast.list.toMutableList()
         var offset = 0
@@ -28,6 +28,8 @@ class FiveDaysForecast constructor(forecast: ForecastResponse) {
                     forecast.list.filter { DateUtil.isSameDay(it.getDate(), auxDate) })
             )
         }
+        return forecastList.toList()
+
     }
 
     @VisibleForTesting
@@ -39,8 +41,5 @@ class FiveDaysForecast constructor(forecast: ForecastResponse) {
         return Date()
     }
 
-    fun getList(): List<DayForecast> = forecastList.toList()
-
-    class DayForecast constructor(val date: String, val forecast: List<Forecast>)
 
 }

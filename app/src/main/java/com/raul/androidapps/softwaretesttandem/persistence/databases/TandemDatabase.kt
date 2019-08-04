@@ -32,9 +32,8 @@ abstract class TandemDatabase : RoomDatabase() {
             preferenceManager: PreferencesManager,
             databasePopulateTool: DatabasePopulateTool
         ): TandemDatabase =
-            INSTANCE ?: synchronized(this) {
-                INSTANCE ?: buildDatabase(context, preferenceManager, databasePopulateTool).also { INSTANCE = it }
-            }
+            INSTANCE ?: buildDatabase(context, preferenceManager, databasePopulateTool).also { INSTANCE = it }
+
 
         private fun buildDatabase(
             context: Context,

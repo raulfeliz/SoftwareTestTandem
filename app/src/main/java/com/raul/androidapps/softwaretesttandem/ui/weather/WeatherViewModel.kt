@@ -1,16 +1,18 @@
 package com.raul.androidapps.softwaretesttandem.ui.weather
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.raul.androidapps.softwaretesttandem.R
-import com.raul.androidapps.softwaretesttandem.TandemApplication
-import com.raul.androidapps.softwaretesttandem.model.ForecastResponse
-import com.raul.androidapps.softwaretesttandem.model.TotalForecastResponse
-import com.raul.androidapps.softwaretesttandem.model.WeatherResponse
+import com.raul.androidapps.softwaretesttandem.model.*
 import com.raul.androidapps.softwaretesttandem.network.NetworkServiceFactory
 import com.raul.androidapps.softwaretesttandem.network.Resource
 import com.raul.androidapps.softwaretesttandem.persistence.PersistenceManager
 import com.raul.androidapps.softwaretesttandem.persistence.entities.CityInfoEntity
+import com.raul.androidapps.softwaretesttandem.preferences.PreferencesConstants
+import com.raul.androidapps.softwaretesttandem.preferences.PreferencesManager
 import com.raul.androidapps.softwaretesttandem.resources.ResourcesManager
 import com.raul.androidapps.softwaretesttandem.utils.TandemConstants
 import kotlinx.coroutines.Dispatchers
@@ -34,13 +36,17 @@ class WeatherViewModel @Inject constructor(
         suggestions.value = listOf()
     }
 
-    fun resetLastTimeRequested(){
+    fun resetLastTimeRequested() {
         lastTimeRequested = 0
     }
 
-    fun createDb() {
-        viewModelScope.launch {
-            persistenceManager.createDb()
+    fun createDb(preferenceManager: PreferencesManager) {
+        if (!preferenceManager.getBooleanFromPreferences(PreferencesConstants.PROPERTY_DB_POPULATED_WITH_SMALL_LIST) ||
+            !preferenceManager.getBooleanFromPreferences(PreferencesConstants.PROPERTY_DB_POPULATED_WITH_SMALL_LIST)
+        ) {
+            viewModelScope.launch {
+                persistenceManager.createDb()
+            }
         }
     }
 
@@ -63,11 +69,26 @@ class WeatherViewModel @Inject constructor(
                 serverResponse.value = if (errorMessage != null) {
                     Resource.error(errorMessage)
                 } else {
-                    Resource.success(TotalForecastResponse(currentWeather.data, nextDaysWeather.data))
+                    Resource.success(
+                        getTotalForecastResponse(
+                            currentWeather.data,
+                            nextDaysWeather.data
+                        )
+                    )
                 }
             }
         }
     }
+
+    private suspend fun getTotalForecastResponse(
+        currentWeather: WeatherResponse?,
+        nextDaysWeather: ForecastResponse?
+    ): TotalForecastResponse =
+        withContext(Dispatchers.Default) {
+            val fiveDaysForecastAsList = FiveDaysForecast.getAsList(nextDaysWeather)
+            TotalForecastResponse(currentWeather, fiveDaysForecastAsList)
+        }
+
 
     @VisibleForTesting
     suspend fun getCurrentWeather(id: Long): Resource<WeatherResponse> =
@@ -97,7 +118,7 @@ class WeatherViewModel @Inject constructor(
             .also { if (it) lastTimeRequested = time }
 
     fun getSuggestions(name: String) {
-        if(name.isBlank()){
+        if (name.isBlank()) {
             suggestions.value = listOf()
             return
         }

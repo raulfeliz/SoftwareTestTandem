@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="dayForecast" type="com.raul.androidapps.softwaretesttandem.model.FiveDaysForecast.DayForecast"/>
+        <variable name="dayForecast" type="com.raul.androidapps.softwaretesttandem.model.DayForecast"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

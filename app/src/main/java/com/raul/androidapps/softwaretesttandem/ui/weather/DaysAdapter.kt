@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.raul.androidapps.softwaretesttandem.R
 import com.raul.androidapps.softwaretesttandem.databinding.RowItemBinding
 import com.raul.androidapps.softwaretesttandem.databinding.TandemBindingComponent
+import com.raul.androidapps.softwaretesttandem.model.DayForecast
 import com.raul.androidapps.softwaretesttandem.model.FiveDaysForecast
 import com.raul.androidapps.softwaretesttandem.resources.ResourcesManager
 
@@ -17,7 +18,7 @@ class DaysAdapter constructor(
 ) :
     RecyclerView.Adapter<DaysAdapter.DayViewHolder>() {
 
-    private var items: List<FiveDaysForecast.DayForecast> = listOf()
+    private var items: List<DayForecast> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DayViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -36,7 +37,7 @@ class DaysAdapter constructor(
         holder.bind(items[position], resourcesManager)
     }
 
-    fun updateItems(items: List<FiveDaysForecast.DayForecast>) {
+    fun updateItems(items: List<DayForecast>) {
         this.items = items
         notifyDataSetChanged()
     }
@@ -45,7 +46,7 @@ class DaysAdapter constructor(
         private val binding: RowItemBinding,
         private val tandemBindingComponent: TandemBindingComponent
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(forecast: FiveDaysForecast.DayForecast, resourcesManager: ResourcesManager) {
+        fun bind(forecast: DayForecast, resourcesManager: ResourcesManager) {
             binding.dayForecast = forecast
             val adapter =
                 CellsAdapter(tandemBindingComponent = tandemBindingComponent, resourcesManager = resourcesManager)

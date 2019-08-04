@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.raul.androidapps.softwaretesttandem.R
 import com.raul.androidapps.softwaretesttandem.databinding.WeatherFragmentBinding
-import com.raul.androidapps.softwaretesttandem.model.FiveDaysForecast
 import com.raul.androidapps.softwaretesttandem.model.TotalForecastResponse
 import com.raul.androidapps.softwaretesttandem.network.Resource
 import com.raul.androidapps.softwaretesttandem.ui.MainActivity
@@ -21,7 +20,7 @@ import com.raul.androidapps.softwaretesttandem.ui.weather.search.CitiesAdapter
 
 class WeatherFragment : BaseFragment(), CitiesAdapter.CitySelected {
 
-    companion object{
+    companion object {
         private const val CITY_ID: String = "city_id"
     }
 
@@ -38,7 +37,13 @@ class WeatherFragment : BaseFragment(), CitiesAdapter.CitySelected {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.weather_fragment, container, false, tandemBindingComponent)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.weather_fragment,
+            container,
+            false,
+            tandemBindingComponent
+        )
         return binding.root
     }
 
@@ -48,10 +53,11 @@ class WeatherFragment : BaseFragment(), CitiesAdapter.CitySelected {
         }
         super.onSaveInstanceState(outState)
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         savedInstanceState?.apply {
-            if(containsKey(CITY_ID)){
+            if (containsKey(CITY_ID)) {
                 requestedId = getLong(CITY_ID)
             }
         }
@@ -59,7 +65,7 @@ class WeatherFragment : BaseFragment(), CitiesAdapter.CitySelected {
         adapter = DaysAdapter(resourcesManager, tandemBindingComponent)
         binding.forecastContainer.forecastList.adapter = adapter
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
-        viewModel.createDb()
+        viewModel.createDb(preferenceManager = preferencesManager)
         viewModel.getServerResponseObservable().observe({ this.lifecycle }) {
             it?.let { resource ->
                 when (resource.status) {
@@ -94,28 +100,28 @@ class WeatherFragment : BaseFragment(), CitiesAdapter.CitySelected {
 
     }
 
-    fun showLoading() {
+    private fun showLoading() {
         binding.progressCircular.visibility = View.VISIBLE
     }
 
-    fun hideLoading() {
+    private fun hideLoading() {
         binding.progressCircular.visibility = View.GONE
     }
 
-    fun showError(message: String?) {
+    private fun showError(message: String?) {
         hideLoading()
         message?.let {
             Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
         }
     }
 
-    fun showForecast(data: TotalForecastResponse?) {
+    private fun showForecast(data: TotalForecastResponse?) {
         hideLoading()
         binding.resources = resourcesManager
         binding.weather = data?.currentWeather
         binding.headerLayout.speedDirection.visibility = View.VISIBLE
         data?.nextFiveDaysWeather?.let {
-            adapter.updateItems(FiveDaysForecast(it).getList())
+            adapter.updateItems(it)
         }
     }
 
@@ -132,7 +138,7 @@ class WeatherFragment : BaseFragment(), CitiesAdapter.CitySelected {
         requestCityInfo()
     }
 
-    fun requestCityInfo() {
+    private fun requestCityInfo() {
         requestedId?.let {
             if (viewModel.needToRequestNewInfo(System.currentTimeMillis())) {
                 viewModel.getForecast(it)

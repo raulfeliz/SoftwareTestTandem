@@ -32,15 +32,13 @@ object FiveDaysForecast {
 
     }
 
-    companion object {
-        @VisibleForTesting
-        fun getClosestDate(list: List<Forecast>): Date {
-            val orderedList = list.sortedBy { it.dt }
-            orderedList.firstOrNull()?.let {
-                return it.getDate()
-            }
-            return Date()
+    @VisibleForTesting
+    fun getClosestDate(list: List<Forecast>): Date {
+        val orderedList = list.sortedBy { it.dt }
+        orderedList.firstOrNull()?.let {
+            return it.getDate()
         }
+        return Date()
     }
 
 

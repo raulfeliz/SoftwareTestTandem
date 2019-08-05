@@ -12,7 +12,7 @@ import java.util.*
 
 class FiveDaysForecastTest {
 
-    lateinit var forecastResponse: ForecastResponse
+    private lateinit var forecastResponse: ForecastResponse
 
     @Before
     fun setUp() {
@@ -32,8 +32,7 @@ class FiveDaysForecastTest {
 
     @Test
     fun testList() {
-        val forecast = FiveDaysForecast(forecastResponse)
-        val list = forecast.getList()
+        val list = FiveDaysForecast.getAsList(forecastResponse)
         Assert.assertTrue(list.size == 6)
 
         val firstDayRef = GregorianCalendar(2017, Calendar.JANUARY, 30)
